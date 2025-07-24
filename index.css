@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    background: #e5e5e5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.book-container {
+    perspective: 1000px;
+    position: relative;
+}
+
+.book {
+    width: 450px;
+    height: 650px;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.book:hover {
+    transform: rotateY(-2deg);
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transition: transform 1s ease;
+}
+
+.page-front, .page-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background: #ffffff;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+}
+
+.page-back {
+    transform: rotateY(180deg);
+}
+
+/* Cover Page */
+.cover-front {
+    background: #ffffff;
+    color: #333;
+    justify-content: center;
+}
+
+.cover-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.cover-subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 400;
+    margin-top: 40px;
+}
+
+.cover-back {
+    background: #ffffff;
+    color: #333;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+/* Inner pages */
+.page-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.page-content h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #2c2c2c;
+}
+
+.page-content p {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    color: #444;
+}
+
+.memory-box {
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    padding: 15px;
+    background: #fafafa;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.signature-area {
+    margin-top: auto;
+    width: 200px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Page animations */
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+.click-hint {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Simple photo placeholders */
+.photo-placeholder {
+    width: 100px;
+    height: 100px;
+    background: #f5f5f5;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.8rem;
+    margin: 20px auto;
+}
+
+.large-photo {
+    width: 200px;
+    height: 150px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .book {
+        width: 350px;
+        height: 500px;
+    }
+    
+    .page-front, .page-back {
+        padding: 40px;
+    }
+    
+    .cover-title {
+        font-size: 3rem;
+    }
+    
+    .page-content h2 {
+        font-size: 2rem;
+    }
+}

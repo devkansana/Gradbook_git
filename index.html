@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UQ Graduation Slam Book</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; overflow: hidden; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('Images/Images/uq-background.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .book-container {
+      perspective: 1600px;
+      width: 420px;
+      height: 530px;
+      position: relative;
+    }
+
+    .book-cover, .book-page {
+      width: 390px;
+      height: 510px;
+      position: absolute;
+      top: 0; left: 0;
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      transition: transform 1.4s cubic-bezier(0.68, -0.25, 0.27, 1.25);
+      border-radius: 0px 0px 0px 0px;
+      box-shadow: 0 10px 36px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+
+    .book-page
+{
+    border-radius: 0px 0px 0px 0px;
+
+}
+    .cover-front, .cover-back,
+    .page-front, .page-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      backface-visibility: hidden;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .page-back{
+    border-radius: 0px 20px 20px 0px;
+    }
+
+    .cover-back, .page-back {
+      transform: rotateY(180deg);
+    }
+
+    .book-cover {
+      z-index: 5;
+    }
+
+    .book-cover.flipped {
+      transform: rotateY(-179deg);
+      z-index: 1;
+    }
+
+    .book-page {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .book-page.flipped {
+      transform: rotateY(-179deg);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 3;
+    }
+
+    /* Manually shown via JavaScript */
+    #page2.show, #page4.show, #endPage.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .page-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 480px) {
+      .book-container { width: 96vw; height: 62vw; }
+      .book-cover, .book-page { width: 100%; height: 100%; }
+    }
+
+    @media (max-width: 768px) {
+  .book-container {
+    width: 50vw;
+    height: auto;
+    aspect-ratio: 420 / 530;
+  }
+
+  .book-cover, .book-page {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .book-container {
+    width: 58vw;
+  }
+}
+
+@media (max-width: 768px) {
+ 
+  .book-container {
+    width: 45vw;
+    aspect-ratio: 420 / 530;
+    height: auto;
+    margin-left: 180px;
+   
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="book-container">
+
+    <!-- Cover -->
+    <div class="book-cover" id="cover">
+      <img class="cover-front" src="Images/cover.png" alt="Slam Book Cover" />
+      <img class="cover-back" src="Images/Page1.png" alt="Inside Cover" />
+    </div>
+
+    <!-- Page 2 / Page 3 -->
+    <div class="book-page" id="page2">
+      <div class="page-front">
+        <img class="page-img" src="Images/Page2.png" alt="Page 2" />
+      </div>
+      <div class="page-back">
+        <img class="page-img" src="Images/Page3.png" alt="Page 3" />
+      </div>
+    </div>
+
+    <!-- Page 4 / Page 5 -->
+    <div class="book-page" id="page4">
+      <div class="page-front">
+        <img class="page-img" src="Images/Page4.png" alt="Page 4" />
+      </div>
+      <div class="page-back">
+        <img class="page-img" src="Images/backcover.png" alt="Page 5" />
+      </div>
+    </div>
+
+
+  </div>
+
+  <script>
+    const cover = document.getElementById('cover');
+    const page2 = document.getElementById('page2');
+    const page4 = document.getElementById('page4');
+    const endPage = document.getElementById('endPage');
+
+    let isCoverFlipped = false;
+    let isPage2Flipped = false;
+    let isPage4Flipped = false;
+
+    // Flip cover and delay reveal of Page 2
+    cover.addEventListener('click', () => {
+      if (!isCoverFlipped) {
+        cover.classList.add('flipped');
+        isCoverFlipped = true;
+
+        // Wait ~600ms before showing page 2 underneath
+        setTimeout(() => {
+          page2.classList.add('show');
+        }, 600); // Adjust delay if needed
+      }
+    });
+
+    page2.addEventListener('click', () => {
+      if (!isPage2Flipped) {
+        page2.classList.add('flipped');
+        isPage2Flipped = true;
+
+        // Reveal page 4 after flipping page2
+        setTimeout(() => {
+          page4.classList.add('show');
+        }, 600);
+      }
+    });
+
+    page4.addEventListener('click', () => {
+      if (!isPage4Flipped) {
+        page4.classList.add('flipped');
+        isPage4Flipped = true;
+
+        // Reveal end page after flipping page4
+        setTimeout(() => {
+          endPage.classList.add('show');
+        }, 600);
+      }
+    });
+  </script>
+
+</body>
+</html>
